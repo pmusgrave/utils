@@ -84,13 +84,9 @@ function mergeSort(data) {
   }
 }
 
-var t0 = performance.now();
 //console.log(random_data);
 var result = mergeSort(random_data)
 //console.log(result);
-var t1 = performance.now();
-console.log("Merge sort took " + (t1 - t0) + " milliseconds.")
-
 
 var success = true;
 for (var i = 0; i < result.length - 1; i++) {
