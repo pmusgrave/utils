@@ -55,9 +55,20 @@ function insertNode(newNode,tail) {
   tail = newNode;
 }
 
+function removeNode(node, node_to_remove) {
+  if(node.next === node_to_remove) {
+    node.next = node.next.next;
+    return;
+  }
+  else {
+    traverseList(node.next, node_to_remove);
+  }
+}
+
 var L = new List();
 L.head.next = L.tail;
 linkedlistify(L.head, 0);
-console.log(L.tail);
-insertNode( {key: 42, next: null} , L.tail);
-console.log(L.tail);
+
+var node_to_remove = searchList(L.head, 4);
+removeNode(L.head, node_to_remove);
+console.log(L);
