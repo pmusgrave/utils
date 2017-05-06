@@ -56,19 +56,23 @@ function insertNode(newNode,tail) {
 }
 
 function removeNode(node, node_to_remove) {
-  if(node.next === node_to_remove) {
-    node.next = node.next.next;
-    return;
-  }
-  else {
-    traverseList(node.next, node_to_remove);
+  if (node != null) {
+    if(node.next === node_to_remove) {
+      node.next = node.next.next;
+      return;
+    }
+    else {
+      removeNode(node.next, node_to_remove);
+      return;
+    }
   }
 }
 
 var L = new List();
 L.head.next = L.tail;
 linkedlistify(L.head, 0);
-
+traverseList(L.head);
 var node_to_remove = searchList(L.head, 4);
+console.log(node_to_remove);
 removeNode(L.head, node_to_remove);
-console.log(L);
+traverseList(L.head);
