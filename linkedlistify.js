@@ -10,8 +10,6 @@ function linkedlistify (node, index) {
   if (index >= arr.length - 1) {
     node.key = arr[index];
     node.next = null;
-    console.log(node);
-    //return node;
   }
   else {
     node.key = arr[index];
@@ -33,4 +31,20 @@ function traverseList (node) {
     traverseList(node.next);
   }
 }
-traverseList(head);
+
+function searchList(node, searchKey) {
+  if (node.key == searchKey) {
+    console.log("Key found");
+    console.log(node);
+    return node;
+  }
+  else if (node.next == null){
+    console.log("Key not found");
+    return null;
+  }
+  else {
+    searchList(node.next, searchKey);
+  }
+}
+
+// searchList(head, 11);
