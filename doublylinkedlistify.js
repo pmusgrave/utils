@@ -1,4 +1,4 @@
-// converts an array to a singly linked list
+// converts an array to a doubly linked list
 var arr = [0,1,2,3,4,5,6,7,8,9];
 
 var Linked_list_node = function() {
