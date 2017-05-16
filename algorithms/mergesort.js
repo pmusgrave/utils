@@ -51,7 +51,8 @@ function merge(first_half, second_half) {
       }
     }
 
-
+    // outside the while loop, any remaining items will already be sorted
+    // comparison_pair must be added before anything in either half array
     if (comparison_pair[0] != null) {
       merged_subarray.push(comparison_pair[0]);
     }
@@ -59,7 +60,6 @@ function merge(first_half, second_half) {
       merged_subarray.push(comparison_pair[1]);
     }
     if (first_half[0] != null) {
-      // merged_subarray.push(first_half);
       for (var i = 0; i < first_half.length; i++) {
         merged_subarray.push(first_half[i]);
       }
@@ -73,7 +73,6 @@ function merge(first_half, second_half) {
 }
 
 function mergeSort(data) {
-  //console.log(data);
   if (data.length === 1){
     return data;
   }
@@ -84,9 +83,7 @@ function mergeSort(data) {
   }
 }
 
-//console.log(random_data);
 var result = mergeSort(random_data)
-//console.log(result);
 
 var success = true;
 for (var i = 0; i < result.length - 1; i++) {
