@@ -6,6 +6,7 @@ while (i < dataset_size) {
     i += 1;
 }
 
+// random_data = [4,7,6,1,3,8,4,5,6,6];
 console.log(random_data);
 
 
@@ -18,10 +19,9 @@ var tree_node = function() {
 };
 
 var rootNode = new tree_node();
-var prev = null;
 var node = rootNode;
 rootNode.color = "black";
-var bh = getBlackHeight(rootNode);
+var bh = null;//getBlackHeight(rootNode);
 // console.log("bh: " + bh);
 // bh = getBlackHeight(rootNode.left);
 // console.log("bh: " + bh);
@@ -32,10 +32,13 @@ function buildTree (node, parent) {
     if (node.key == null) {
       node.key = random_data[j];
       node.left = new tree_node();
+      node.left.parent = node;
       node.right = new tree_node();
+      node.right.parent = node;
       node.parent = parent;
       node.color = "black";
       j++;
+      checkColor(parent);
       buildTree(rootNode, null);
     }
     else if (random_data[j] <= node.key) {
@@ -67,17 +70,28 @@ function checkColor(node){
 }
 
 function checkRedBlackProps(node) {
-  
-  if(node.left != null && node.right != null){
-    if (getBlackHeight(node.left) > getBlackHeight(node.right)) {
-      rotateRight(node);
-      checkColor(node);
-    }
-    else if (getBlackHeight(node.left) < getBlackHeight(node.right)) {
-      rotateLeft(node);
-      checkColor(node);
-    }
+  if (node == null) {
+    return;
   }
+
+  if (node.left != null) {
+    var left_bh = getBlackHeight(node.left);
+  }
+  if (node.right != null) {
+    var right_bh = getBlackHeight(node.right);
+  }
+
+
+  // if(node.left != null && node.right != null){
+  //   if (getBlackHeight(node.left) > getBlackHeight(node.right) + 2) {
+  //     rotateRight(node);
+  //     checkColor(node);
+  //   }
+  //   else if (getBlackHeight(node.left) < getBlackHeight(node.right)) {
+  //     rotateLeft(node);
+  //     checkColor(node);
+  //   }
+  // }
 }
 
 function traverseTree(node) {
@@ -109,45 +123,37 @@ function rotateLeft(node) {
   return newRoot;
 }
 
-function getBlackHeight(n) {
-  var left_bh = 0;
-  var right_bh = 0;
-  function getLeftAndRightBlackHeight(node) {
-    if (node == null) {
-      //console.log("null " + node.key)
-      return 1;
-    }
-    else if (node.color == "black" && node.left != null) {
-      //console.log("not null " + node.key);
-      left_bh += 1;
-      getLeftAndRightBlackHeight(node.left);
-    }
-    else if (node.right != null) {
-      right_bh += 1;
-      getLeftAndRightBlackHeight(node.right);
+function getBlackHeight(node) {
+  if (node == null) {
+    //console.log("null " + node);
+    return -1;
+  }
+  else if (node.color == "black") {
+    var left_bh = getBlackHeight(node.left);
+    var right_bh = getBlackHeight(node.right);
+    if (left_bh >= right_bh) {
+      return left_bh + 1;
     }
     else {
-      getLeftAndRightBlackHeight(node.left);
-      getLeftAndRightBlackHeight(node.right);
+      return right_bh + 1;
     }
   }
-  getLeftAndRightBlackHeight(n);
-  if (left_bh >= right_bh) {
-    return left_bh;
-  }
   else {
-    return right_bh;
+    var left_bh = getBlackHeight(node.left);
+    var right_bh = getBlackHeight(node.right);
+    if (left_bh >= right_bh) {
+      return left_bh;
+    }
+    else {
+      return right_bh;
+    }
   }
 }
 
 
 buildTree(rootNode);
+checkRedBlackProps(rootNode);
 traverseTree(rootNode);
 bh = getBlackHeight(rootNode);
 console.log("bh: " + bh);
-console.log("root before rotation: " + rootNode.key);
-// rootNode = rotateRight(rootNode);
-// console.log("root after rotation: " + rootNode.key)
-// traverseTree(rootNode);
-// bh = getBlackHeight(rootNode);
-// console.log("bh after rotation: " + bh)
+console.log("root node: " + rootNode.key);
