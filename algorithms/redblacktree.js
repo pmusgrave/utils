@@ -1,12 +1,13 @@
 var random_data = new Array();
 var dataset_size = 10;
 var i = 0
-while (i < dataset_size) {
-    random_data.push( Math.floor( Math.random() * dataset_size ) );
-    i += 1;
-}
+// while (i < dataset_size) {
+//     random_data.push( Math.floor( Math.random() * dataset_size ) );
+//     i += 1;
+// }
 
 // random_data = [4,7,6,1,3,8,4,5,6,6];
+random_data = [5,7,6,9,9,5,6,8,9,3];
 console.log(random_data);
 
 
@@ -75,12 +76,31 @@ function checkRedBlackProps(node) {
   }
 
   if (node.left != null) {
+    checkRedBlackProps(node.left);
     var left_bh = getBlackHeight(node.left);
   }
-  if (node.right != null) {
-    var right_bh = getBlackHeight(node.right);
+  else {
+    return;
   }
 
+  if (node.right != null) {
+    checkRedBlackProps(node.right);
+    var right_bh = getBlackHeight(node.right);
+  }
+  else {
+    return;
+  }
+
+  if (left_bh > right_bh + 1) {
+    rotateRight(node);
+    checkColor(node);
+    return;
+  }
+  if (right_bh > left_bh + 1) {
+    rotateLeft(node);
+    checkColor(node);
+    return;
+  }
 
   // if(node.left != null && node.right != null){
   //   if (getBlackHeight(node.left) > getBlackHeight(node.right) + 2) {
@@ -152,7 +172,13 @@ function getBlackHeight(node) {
 
 
 buildTree(rootNode);
-checkRedBlackProps(rootNode);
+traverseTree(rootNode);
+console.log("root node: " + rootNode.key);
+bh = getBlackHeight(rootNode);
+console.log("bh: " + bh);
+console.log("checking red black properties");
+//checkRedBlackProps(rootNode);
+rotateRight(rootNode);
 traverseTree(rootNode);
 bh = getBlackHeight(rootNode);
 console.log("bh: " + bh);
