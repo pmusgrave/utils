@@ -58,6 +58,7 @@ function findGraphObject(graph, key) {
 var queue = [];
 var starting_position = 0;
 queue.push(graph[findGraphObject(graph, starting_position)]);
+queue[0].distance = 0;
 
 while (queue.length > 0) {
   for (var i = 0; i < queue[0].adj.length; i++) {
@@ -65,15 +66,10 @@ while (queue.length > 0) {
     if (nextAdj.color == "white") {
       queue.push(nextAdj);
       nextAdj.color = "grey";
-      if (nextAdj.distance == Infinity){
-        nextAdj.distance = 1;
-      }
-      else {
-        nextAdj.distance = queue[0].distance + 1;
-      }
+      nextAdj.distance = queue[0].distance + 1;
     }
   }
-  console.log(queue[0].key);
+  console.log(queue[0].key, queue[0].distance);
   queue[0].color = "black";
   queue.shift();
 }
