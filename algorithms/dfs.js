@@ -72,5 +72,4 @@ while (queue.length > 0) {
   }
   console.log(current_vertex.key, current_vertex.distance);
   current_vertex.color = "black";
-  //queue.shift();
 }

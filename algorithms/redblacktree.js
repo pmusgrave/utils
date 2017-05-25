@@ -1,3 +1,9 @@
+// red black trees
+// this still needs a lot of improvement
+// to do:
+// change method of building tree initially to an append node or insert method
+// change checking red black properties to be recursive - it is not currently
+//    so it only balances the root node
 var random_data = new Array();
 var dataset_size = 10;
 var i = 0
@@ -29,6 +35,8 @@ var bh = null;//getBlackHeight(rootNode);
 var j = 0;
 
 function buildTree (node, parent) {
+// this would be better as "appendNode" that works one item at a time
+// will change later
   if (j < random_data.length) {
     if (node.key == null) {
       node.key = random_data[j];
@@ -75,8 +83,8 @@ function checkRedBlackProps(node) {
     return;
   }
 
+
   if (node.left != null) {
-    checkRedBlackProps(node.left);
     var left_bh = getBlackHeight(node.left);
   }
   else {
@@ -84,34 +92,30 @@ function checkRedBlackProps(node) {
   }
 
   if (node.right != null) {
-    checkRedBlackProps(node.right);
     var right_bh = getBlackHeight(node.right);
   }
   else {
     return;
   }
 
-  if (left_bh > right_bh + 1) {
-    rotateRight(node);
-    checkColor(node);
-    return;
-  }
-  if (right_bh > left_bh + 1) {
-    rotateLeft(node);
-    checkColor(node);
-    return;
-  }
+  while(right_bh > left_bh + 1 || left_bh > right_bh + 1){
+    console.log(left_bh + ' ' + right_bh);
 
-  // if(node.left != null && node.right != null){
-  //   if (getBlackHeight(node.left) > getBlackHeight(node.right) + 2) {
-  //     rotateRight(node);
-  //     checkColor(node);
-  //   }
-  //   else if (getBlackHeight(node.left) < getBlackHeight(node.right)) {
-  //     rotateLeft(node);
-  //     checkColor(node);
-  //   }
-  // }
+    if (left_bh > right_bh + 1) {
+      console.log('rotating right');
+      rootNode = rotateRight(node);
+      checkColor(node);
+      return;
+    }
+    if (right_bh > left_bh + 1) {
+      console.log('rotating left');
+      rootNode = rotateLeft(node);
+      checkColor(node);
+      return;
+    }
+    left_bh = getBlackHeight(node.left);
+    right_bh = getBlackHeight(node.right);
+  }
 }
 
 function traverseTree(node) {
@@ -177,9 +181,16 @@ console.log("root node: " + rootNode.key);
 bh = getBlackHeight(rootNode);
 console.log("bh: " + bh);
 console.log("checking red black properties");
-//checkRedBlackProps(rootNode);
-rotateRight(rootNode);
+checkRedBlackProps(rootNode);
+checkColor(rootNode);
+//rootNode = rotateLeft(rootNode);
 traverseTree(rootNode);
 bh = getBlackHeight(rootNode);
 console.log("bh: " + bh);
 console.log("root node: " + rootNode.key);
+
+left_bh = getBlackHeight(rootNode.left);
+console.log("left bh: " + left_bh);
+
+right_bh = getBlackHeight(rootNode.right);
+console.log("bh: " + right_bh);
