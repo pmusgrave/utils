@@ -7,50 +7,54 @@ while (i < dataset_size) {
 }
 
 console.log(random_data);
-var tree_node = function() {
-  key = null;
-  parent = null;
-  left = null;
-  right = null;
-};
 
-var rootNode = new tree_node();
+module.exports = {
+  tree_node : function() {
+    key = null;
+    parent = null;
+    left = null;
+    right = null;
+  },
+
+  buildTree : function (node, parent) {
+    if (j < random_data.length) {
+      if (node.key == null) {
+        node.key = random_data[j];
+        node.left = new this.tree_node();
+        node.right = new this.tree_node();
+        node.parent = parent;
+        j++;
+        this.buildTree(rootNode, null);
+      }
+      else if (random_data[j] <= node.key) {
+        this.buildTree(node.left, node);
+      }
+      else if (random_data[j] > node.key) {
+        this.buildTree(node.right, node);
+      }
+    }
+    else {
+      return;
+    }
+  },
+
+  traverseTree : function (node) {
+    if (node.key != null) {
+      this.traverseTree(node.left);
+      console.log(node.key);
+      this.traverseTree(node.right);
+    }
+    else {
+      return;
+    }
+  }
+
+}
+
+var rootNode = new module.exports.tree_node();
 var prev = null;
 var node = rootNode;
 var j = 0;
 
-function buildTree (node, parent) {
-  if (j < random_data.length) {
-    if (node.key == null) {
-      node.key = random_data[j];
-      node.left = new tree_node();
-      node.right = new tree_node();
-      node.parent = parent;
-      j++;
-      buildTree(rootNode, null);
-    }
-    else if (random_data[j] <= node.key) {
-      buildTree(node.left, node);
-    }
-    else if (random_data[j] > node.key) {
-      buildTree(node.right, node);
-    }
-  }
-  else {
-    return;
-  }
-}
-
-function traverseTree(node) {
-  if (node.key != null) {
-    traverseTree(node.left);
-    console.log(node.key);
-    traverseTree(node.right);
-  }
-  else {
-    return;
-  }
-}
-
-buildTree(rootNode, null);
-traverseTree(rootNode);
+module.exports.buildTree(rootNode, null);
+module.exports.traverseTree(rootNode);
