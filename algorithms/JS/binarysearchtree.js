@@ -1,5 +1,6 @@
+// builds a binary search tree out of an array of random data
 var random_data = new Array();
-var dataset_size = 50;
+var dataset_size = 10;
 var i = 0
 while (i < dataset_size) {
     random_data.push( Math.floor( Math.random() * dataset_size ) );
@@ -8,20 +9,28 @@ while (i < dataset_size) {
 
 console.log(random_data);
 
+var Tree_node = function() {
+  this.key = null;
+  this.parent = null;
+  this.left = null;
+  this.right = null;
+}
+
+var rootNode = new Tree_node();
+var prev = null;
+var node = rootNode;
+var j = 0;
+
 module.exports = {
-  tree_node : function() {
-    key = null;
-    parent = null;
-    left = null;
-    right = null;
-  },
+  Tree_node: Tree_node,
+  rootNode: rootNode,
 
   buildTree : function (node, parent) {
     if (j < random_data.length) {
       if (node.key == null) {
         node.key = random_data[j];
-        node.left = new this.tree_node();
-        node.right = new this.tree_node();
+        node.left = new this.Tree_node();
+        node.right = new this.Tree_node();
         node.parent = parent;
         j++;
         this.buildTree(rootNode, null);
@@ -48,13 +57,7 @@ module.exports = {
       return;
     }
   }
-
 }
-
-var rootNode = new module.exports.tree_node();
-var prev = null;
-var node = rootNode;
-var j = 0;
 
 module.exports.buildTree(rootNode, null);
 module.exports.traverseTree(rootNode);
