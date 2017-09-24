@@ -4,7 +4,7 @@
 // change method of building tree initially to an append node or insert method
 // change checking red black properties to be recursive - it is not currently
 //    so it only balances the root node
-// store height of each node as part of the tree_node object
+//    store height of each node as part of the tree_node object
 //    and update it whenever a change is made
 var random_data = new Array();
 var dataset_size = 10;
