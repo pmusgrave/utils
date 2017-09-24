@@ -1,4 +1,0 @@
-﻿  binary_search.c
-c:\users\paul\documents\code\utils\algorithms\c\binary_search\binary_search\binary_search\binary_search.c(57): warning C4715: 'searchForKey': not all control paths return a value
-  binary_search.vcxproj -> C:\Users\paul\Documents\Code\utils\algorithms\C\binary_search\binary_search\Debug\binary_search.exe
-  binary_search.vcxproj -> C:\Users\paul\Documents\Code\utils\algorithms\C\binary_search\binary_search\Debug\binary_search.pdb (Partial PDB)
