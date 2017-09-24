@@ -7,7 +7,7 @@ while (i < dataset_size) {
     i += 1;
 }
 
-console.log(random_data);
+console.log('Random data: ' + random_data);
 
 var Tree_node = function() {
   this.key = null;
@@ -47,17 +47,42 @@ module.exports = {
     }
   },
 
-  traverseTree : function (node) {
+  traverseTreeInOrder : function (node) {
     if (node.key != null) {
-      this.traverseTree(node.left);
+      this.traverseTreeInOrder(node.left);
       console.log(node.key);
-      this.traverseTree(node.right);
+      this.traverseTreeInOrder(node.right);
     }
     else {
       return;
     }
-  }
+  },
+
+  traverseTreePreOrder : function (node) {
+    if (node.key != null) {
+      console.log(node.key);
+      this.traverseTreePreOrder(node.left);
+      this.traverseTreePreOrder(node.right);
+    }
+    else {
+      return;
+    }
+  },
+
+  traverseTreePostOrder : function (node) {
+    if (node.key != null) {
+      this.traverseTreePostOrder(node.left);
+      this.traverseTreePostOrder(node.right);
+      console.log(node.key);
+    }
+    else {
+      return;
+    }
+  },
+
+
 }
 
+console.log('Traversing tree in order: ');
 module.exports.buildTree(rootNode, null);
-module.exports.traverseTree(rootNode);
+module.exports.traverseTreeInOrder(rootNode);

@@ -1,7 +1,7 @@
 /******************************************************************************
 TESTING BINARY SEARCH
 ******************************************************************************/
-console.log("Testing binary_search.js ...");
+console.log("Testing binary_search.js...");
 const binary_search = require('./binary_search.js');
 var random_data = new Array();
 var dataset_size = 1001;
@@ -12,6 +12,7 @@ while (i <= dataset_size) {
 }
 
 //var key = process.argv[2];
+console.log('Searching for 42...');
 var key = 42;
 //if (!isNaN(key)) {
 var index = binary_search.binarySearch(random_data, key);
@@ -77,6 +78,14 @@ if (success == true){
   console.log("sort successful");
 }
 console.log('Done\n');
+
+/******************************************************************************
+TESTING BINARY SEARCH TREE
+******************************************************************************/
+console.log('Testing Binary Search Tree...');
+const bst = require('./binarysearchtree.js');
+console.log('Done\n');
+
 
 
 // const hashtable = require('./hashtable_chaining.js');
