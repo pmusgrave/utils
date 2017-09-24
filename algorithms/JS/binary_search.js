@@ -37,26 +37,3 @@ function getNextSearchIndex(min_index, max_index) {
     console.log("index: " + search_index);
     return search_index;
 }
-
-// testing
-var random_data = new Array();
-var dataset_size = 1001;
-var i = 0
-while (i <= dataset_size) {
-    random_data.push(i);
-    i += 1;
-}
-
-var key = process.argv[2];
-if (!isNaN(key)) {
-  var index = module.exports.binarySearch(random_data, key);
-  if (index != null) {
-      console.log("Value is located at index", index);
-  }
-  else {
-      console.log("Value not found");
-  }
-}
-else {
-  console.log('Input was not a number');
-}

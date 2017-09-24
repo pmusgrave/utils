@@ -1,13 +1,5 @@
 // implementation of merge sort that returns items in ascending order
 
-var random_data = new Array();
-var dataset_size = 100000;
-var i = 0
-while (i < dataset_size) {
-    random_data.push( Math.floor( Math.random() * dataset_size ) );
-    i += 1;
-}
-
 module.exports = {
   merge : function (first_half, second_half) {
       var merged_subarray = new Array();
@@ -83,17 +75,4 @@ module.exports = {
       return module.exports.merge(first_half_array, second_half_array);
     }
   }
-}
-
-var result = module.exports.mergeSort(random_data)
-
-var success = true;
-for (var i = 0; i < result.length - 1; i++) {
-  if (result[i] > result[i+1]) {
-    console.log("error");
-    success = false;
-  }
-}
-if (success == true){
-  console.log("sort successful");
 }
