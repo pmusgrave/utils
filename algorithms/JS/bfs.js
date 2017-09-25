@@ -23,8 +23,7 @@ graph.push(new vertex(7,[3,6]));
 // a search algorithm to find the graph object from a given key.
 // Vertices will be sorted by their keys to make searching fast.
 
-module.exports = {
-  findGraphObject : function (graph, key) {
+function findGraphObject (graph, key) {
     // graph argument should be an adjacency list
     var min_index = 0;
     var max_index = graph.length;
@@ -55,17 +54,17 @@ module.exports = {
         }
     }
     return found_index;
-  }
 }
+
 
 var queue = [];
 var starting_position = 0;
-queue.push(graph[module.exports.findGraphObject(graph, starting_position)]);
+queue.push(graph[findGraphObject(graph, starting_position)]);
 queue[0].distance = 0;
 
 while (queue.length > 0) {
   for (var i = 0; i < queue[0].adj.length; i++) {
-    var nextAdj = graph[module.exports.findGraphObject(graph, queue[0].adj[i])];
+    var nextAdj = graph[findGraphObject(graph, queue[0].adj[i])];
     if (nextAdj.color == "white") {
       queue.push(nextAdj);
       nextAdj.color = "grey";
