@@ -24,6 +24,10 @@ int main() {
     }
   }
   if (success == 1){
+    for (int i = 0; i < ARRAY_LENGTH; i++){
+      printf("%d ", random_data[i]);
+    }
+    printf("\n");
     printf("sort successful\n");
   }
   printf("Done\n");
@@ -33,10 +37,10 @@ int main() {
 
 
 void quicksort(int *array, int low, int high) {
-    for (int i = 0; i < ARRAY_LENGTH; i++){
-      printf("%d ", array[i]);
-    }
-    printf("\n");
+    // for (int i = 0; i < ARRAY_LENGTH; i++){
+    //   printf("%d ", array[i]);
+    // }
+    // printf("\n");
 
     if (low < high) {
         int q = partition(array, low, high);
