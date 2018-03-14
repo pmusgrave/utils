@@ -1,10 +1,14 @@
-const assert = require("chai").assert;
+const chai = require("chai");
+const assert = chai.assert;
+const expect = chai.expect; // preference and tested with expect
+
+chai.use(require("chai-sorted"));
 
 /******************************************************************************
 BINARY SEARCH
 ******************************************************************************/
 //console.log("Testing binary_search.js...");
-const binary_search = require('../binary_search.js');
+const binary_search = require('../binary_search.js').binarySearch;
 
 describe('binary_search', function() {
   it('binary search should return 42', function() {
@@ -16,7 +20,7 @@ describe('binary_search', function() {
         i += 1;
     }
     var key = 42;
-    assert.equal(binary_search.binarySearch(random_data, key), key);
+    assert.equal(binary_search(random_data, key), key);
   })
 })
 
@@ -24,18 +28,25 @@ describe('binary_search', function() {
 /******************************************************************************
 MERGESORT
 ******************************************************************************/
-console.log('Testing merge sort...');
 const mergesort = require('../mergesort.js');
-var random_data = new Array();
-var dataset_size = 100000;
-var i = 0;
-while (i < dataset_size) {
-    random_data.push( Math.floor( Math.random() * dataset_size ) );
-    i += 1;
-}
 
-var result = mergesort.mergeSort(random_data)
+describe('merge_sort', function() {
+  it('merge sort should be sorted', function() {
+    var random_data = new Array();
+    var dataset_size = 100000;
+    var i = 0;
+    while (i < dataset_size) {
+        random_data.push( Math.floor( Math.random() * dataset_size ) );
+        i += 1;
+    }
+    var result = mergesort.mergeSort(random_data)
+    expect(result).to.be.sorted()
 
+  })
+})
+
+
+/*
 var success = true;
 for (let i = 0; i < result.length - 1; i++) {
   if (result[i] > result[i+1]) {
@@ -47,6 +58,7 @@ if (success == true){
   console.log("sort successful");
 }
 console.log('Done\n');
+*/
 
 /******************************************************************************
 QUICKSORT
