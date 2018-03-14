@@ -30,8 +30,8 @@ MERGESORT
 ******************************************************************************/
 const mergesort = require('../mergesort.js');
 
-describe('merge_sort', function() {
-  it('merge sort should be sorted', function() {
+describe('mergesort', function() {
+  it('merge sort result should be sorted', function() {
     var random_data = new Array();
     var dataset_size = 100000;
     var i = 0;
@@ -63,18 +63,8 @@ console.log('Done\n');
 /******************************************************************************
 QUICKSORT
 ******************************************************************************/
-console.log('Testing quicksort...');
-const quicksort = require('../quicksort.js').quicksort;
-var random_data = new Array();
-var dataset_size = 1000000;
-var i = 0;
-while (i < dataset_size) {
-    random_data.push( Math.floor( Math.random() * dataset_size ) );
-    i += 1;
-}
-
-quicksort(random_data, 0, random_data.length-1);
-// console.log(random_data);
+/*
+console.log(random_data);
 var success = true;
 for (let i = 0; i < random_data.length - 1; i++) {
   if (random_data[i] > random_data[i+1]) {
@@ -86,6 +76,26 @@ if (success == true){
   console.log("sort successful");
 }
 console.log('Done\n');
+*/
+
+const quicksort = require('../quicksort.js').quicksort;
+
+describe('quicksort', function() {
+  it('random_data should be sorted after calling quicksort (sorted in place)', function() {
+    const quicksort = require('../quicksort.js').quicksort;
+    var random_data = new Array();
+    var dataset_size = 1000000;
+    var i = 0;
+    while (i < dataset_size) {
+        random_data.push( Math.floor( Math.random() * dataset_size ) );
+        i += 1;
+    }
+
+    quicksort(random_data, 0, random_data.length-1);
+    expect(random_data).to.be.sorted()
+
+  })
+})
 
 /******************************************************************************
 BINARY SEARCH TREE
