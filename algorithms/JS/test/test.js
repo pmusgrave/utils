@@ -45,39 +45,9 @@ describe('mergesort', function() {
   })
 })
 
-
-/*
-var success = true;
-for (let i = 0; i < result.length - 1; i++) {
-  if (result[i] > result[i+1]) {
-    console.log("error");
-    success = false;
-  }
-}
-if (success == true){
-  console.log("sort successful");
-}
-console.log('Done\n');
-*/
-
 /******************************************************************************
 QUICKSORT
 ******************************************************************************/
-/*
-console.log(random_data);
-var success = true;
-for (let i = 0; i < random_data.length - 1; i++) {
-  if (random_data[i] > random_data[i+1]) {
-    console.log("error");
-    success = false;
-  }
-}
-if (success == true){
-  console.log("sort successful");
-}
-console.log('Done\n');
-*/
-
 const quicksort = require('../quicksort.js').quicksort;
 
 describe('quicksort', function() {
