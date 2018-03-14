@@ -34,6 +34,6 @@ function getNextSearchIndex(min_index, max_index) {
     else {
         search_index = Math.floor( (max_index-min_index) / 2 ) + min_index
     }
-    console.log("index: " + search_index);
+    //console.log("index: " + search_index);
     return search_index;
 }
