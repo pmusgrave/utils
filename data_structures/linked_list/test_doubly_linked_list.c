@@ -17,7 +17,12 @@ int main(){
   }
   delete_node(target);
   printf("\n");
-  printf("After deleting\n");
+  printf("After deleting 7\n");
   print_linked_list(head);
+  printf("\n");
+  delete_linked_list(head);
+  printf("After deleting entire list\n");
+  print_linked_list(head);
+
   return 0;
 }

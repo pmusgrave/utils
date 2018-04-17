@@ -21,8 +21,8 @@ node_t* insert(int val, node_t* head) {
 }
 
 void delete_node(node_t* node) {
-  node_t* prev = node->prev;
-  prev->next = node->next;
+  node->prev->next = node->next;
+  node->next->prev = node->prev;
   free(node);
 }
 
@@ -38,13 +38,16 @@ bool find_val(int val, node_t* head) {
 
 void delete_linked_list(node_t* head) {
   node_t* current_node = head->next;
-  while(current_node != NULL){
+  while(current_node->next != NULL){
     if(current_node->prev != NULL){
+      printf("Freeing %d\n", current_node->prev->val);
       free(current_node->prev);
       current_node = current_node->next;
     }
   }
+  free(current_node->prev);
   free(current_node);
+  free(head);
   return;
 }
 
