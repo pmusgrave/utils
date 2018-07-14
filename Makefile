@@ -1,14 +1,17 @@
 MCU=atmega328p
 F_CPU=16000000UL
 
-VCA: VCA.o timer.o
-	avr-gcc -mmcu=$(MCU) VCA.o timer.o -o VCA
+main: main.o timer.o stopwatch.o
+	avr-gcc -mmcu=$(MCU) main.o timer.o -o main
 
-VCA.o: VCA.c VCA.h 
-	avr-gcc -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -c -o VCA.o VCA.c
+main.o: main.c
+	avr-gcc -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -c -o main.o main.c
 
 timer.o: timer.c timer.h
 	avr-gcc -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -c -o timer.o timer.c
 
+stopwatch.o: stopwatch.c stopwatch.h
+	avr-gcc -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -c -o stopwatch.o stopwatch.c
+
 clean:
-	rm *.o VCA
+	rm *.o main

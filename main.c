@@ -1,4 +1,7 @@
+#ifndef F_CPU
 #define F_CPU 160000000UL
+#endif
+#include <stdint.h>
 #include "stopwatch.h"
 #include "timer.h"
 #include <avr/io.h>

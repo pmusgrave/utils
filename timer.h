@@ -1,5 +1,6 @@
 #ifndef TIMER_H
 #define TIMER_H
+#include <stdint.h>
 
 struct timer {
   uint8_t timer_config_register;

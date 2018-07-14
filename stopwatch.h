@@ -5,12 +5,14 @@
 #define F_CPU 160000000UL
 #endif
 
+#include <stdint.h>
+
 struct stopwatch{
   uint16_t ms;
   uint16_t s;
   uint16_t min;
   uint16_t hour;
-}
+};
 
 void StartWatch();
 void StopWatch();
