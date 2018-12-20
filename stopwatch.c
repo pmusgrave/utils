@@ -9,7 +9,7 @@ void InitStopwatch(){
       0,
       &OCR1AL,
       &OCR1AH,
-      62499
+      16000
     };
 
     InitTC1();

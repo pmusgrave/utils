@@ -8,7 +8,7 @@ void InitTC1(void){
   TCCR1A = 0x00;
   TCCR1B = 0x00;
   // mode: CTC, TOP = OCR1A
-  TCCR1B |= (1<<WGM12) | (1<<CS12);
+  TCCR1B |= (1<<WGM12) | (1<<CS10);
   TIMSK1 |= (1<<OCIE1A);
 }
 
@@ -20,7 +20,7 @@ void DisableTimer(struct timer timer){
   timer.timer_config_register = timer.timer_config_disabled_value;
 }
 
-void SetCompareValue(struct timer timer, uint8_t new_compare_value){
+void SetCompareValue(struct timer timer, uint16_t new_compare_value){
   // temporarily disable timer while changing compare value
   // not sure if this is necessary?
   DisableTimer(timer);

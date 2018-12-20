@@ -16,6 +16,6 @@ struct timer {
 void InitTC1(void);
 void EnableTimer(struct timer timer);
 void DisableTimer(struct timer timer);
-void SetCompareValue(struct timer timer, uint8_t new_compare_value);
+void SetCompareValue(struct timer timer, uint16_t new_compare_value);
 
 #endif
