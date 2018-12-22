@@ -2,16 +2,17 @@
 #define F_CPU 16000000UL
 #endif
 #include <stdint.h>
-#include "stopwatch.h"
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
+#include "stopwatch.h"
+#include "uart.h"
 
 #define LED_PIN 5
 #define HOUR_LED_PIN 7
 #define MIN_LED_PIN 6
 #define SEC_LED_PIN 5
-#define RESTART_BUTTON 4
+#define BUTTON 4
 #define REFS (1 << REFS0) | (1<<REFS1) | (1<<ADLAR)
 void InitGPIO(void);
 
@@ -27,12 +28,7 @@ int main(void){
   sei();
 
   while(1){
-    if (!(PIND & (1 << RESTART_BUTTON))) {
-      // PORTD |= (1<<SEC_LED_PIN) | (1 << MIN_LED_PIN) | (1 << HOUR_LED_PIN);
-
-    }
-
-    if (stopwatch.ms == 1000){
+    if (stopwatch.ms >= 1000){
       cli();
 
       stopwatch.sec++;
@@ -43,7 +39,7 @@ int main(void){
 
       sei();
     }
-    if (stopwatch.sec == 60){
+    if (stopwatch.sec >= 60){
       cli();
       stopwatch.min++;
       stopwatch.sec = 0;
@@ -51,7 +47,7 @@ int main(void){
       PORTD ^= (1<<MIN_LED_PIN);
       sei();
     }
-    if (stopwatch.min == 60){
+    if (stopwatch.min >= 60){
       cli();
       stopwatch.hour++;
       stopwatch.min = 0;
@@ -61,6 +57,7 @@ int main(void){
       sei();
     }
   }
+
 
   return 0;
 }

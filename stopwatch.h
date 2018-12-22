@@ -14,6 +14,5 @@ void InitStopwatch();
 void StartWatch();
 void StopWatch();
 void ResetWatch();
-uint8_t ReadWatchValue();
 
 #endif
