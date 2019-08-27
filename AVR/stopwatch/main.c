@@ -6,7 +6,7 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include "stopwatch.h"
-#include "uart.h"
+#include "/home/paul/Documents/code/training/AVR/uart/uart.h"
 
 #define LED_PIN 5
 #define HOUR_LED_PIN 7
