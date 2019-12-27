@@ -25,6 +25,7 @@ ISR(TIMER1_COMPA_vect){
 int main(void){
   InitGPIO();
   InitStopwatch();
+  StartWatch();
   sei();
 
   while(1){
@@ -34,7 +35,7 @@ int main(void){
       stopwatch.sec++;
       stopwatch.ms = 0;
 
-      // PORTB ^= (1<<LED_PIN);
+      PORTB ^= (1<<LED_PIN);
       PORTD ^= (1<<SEC_LED_PIN);
 
       sei();
