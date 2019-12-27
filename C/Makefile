@@ -3,24 +3,20 @@ OPT=-Og
 BUILD_DIR=build
 
 C_SOURCES= \
-src/insertionsort.c \
-src/mergesort.c \
-src/quicksort.c \
+sort/src/*.c \
 
 TEST_SOURCES= \
-test/test_sort.c \
-src/insertionsort.c \
-src/mergesort.c \
-src/quicksort.c \
+sort/test/test_sort.c \
+sort/src/*.c \
 /usr/local/include/unity/unity.c
 
 DEPS= \
+sort/inc/*.h \
 /usr/local/include/unity/unity.h \
 /usr/local/include/unity/unity_internals.h
-#inc/chapter1.h \
 
 C_INCLUDES= \
--Iinc \
+-Isort/inc \
 -I/usr/local/include/unity
 
 LIBS=
@@ -30,8 +26,8 @@ $(BUILD_DIR)%.o: $(C_SOURCES) $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 test: $(TEST_SOURCES)
-	$(CC) $(CFLAGS) $(TEST_SOURCES) -o test/test_sort
-	test/test_sort
+	$(CC) $(CFLAGS) $(TEST_SOURCES) -o sort/test/test_sort
+	sort/test/test_sort
 
 .PHONY: all test clean
 clean:
