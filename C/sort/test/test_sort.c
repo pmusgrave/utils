@@ -48,4 +48,5 @@ void test_quicksort() {
 int main(void) {
   RUN_TEST(test_insertionsort);
   RUN_TEST(test_quicksort);
+  return 0;
 }
