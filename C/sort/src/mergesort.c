@@ -1,4 +1,7 @@
-// implementation of merge sort that returns items in ascending order
+/***********************************************************************
+* MERGE SORT
+* Time complexity: O(n) worst case, O(n log n) average
+***********************************************************************/
 #include <stdio.h>
 #include "sorting.h"
 /*

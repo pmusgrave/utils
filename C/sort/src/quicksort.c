@@ -1,3 +1,7 @@
+/***********************************************************************
+* QUICK SORT
+* Time complexity: O(n^2) worst case, O(n log n) on average
+***********************************************************************/
 #include <stdio.h>
 #include "sorting.h"
 

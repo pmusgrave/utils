@@ -16,9 +16,15 @@ search/test/test_search.c \
 search/src/*.c \
 /usr/local/include/unity/unity.c
 
+FFT_SOURCES= \
+fft/test/*.c \
+fft/src/*.c \
+/usr/local/include/unity/unity.c
+
 DEPS= \
 sort/inc/*.h \
 search/inc/*.h \
+fft/inc/*.h \
 /usr/local/include/unity/unity.h \
 /usr/local/include/unity/unity_internals.h
 
@@ -38,6 +44,8 @@ test: $(TEST_SOURCES)
 	sort/test/test_sort
 	$(CC) $(CFLAGS) $(SEARCH_SOURCES) -o search/test/test_search
 	search/test/test_search
+	$(CC) $(CFLAGS) $(FFT_SOURCES) -o fft/test/test_fft -lm
+	fft/test/test_fft
 
 .PHONY: all test clean
 clean:
