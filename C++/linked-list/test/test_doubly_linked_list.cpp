@@ -4,22 +4,22 @@
 #include "node.hpp"
 
 int main(){
-  Node *head = new Node(0);
-  DoublyLinkedList list(head);
-  int arr[10] = {1,5,9,4,87,7,6,2,3,45};
+  Node<char> *head = new Node<char>('a');
+  DoublyLinkedList<char> list(head);
+  char arr[10] = {'u','q','b','d','f','i','e','z','n','b'};
   for(int i = 0; i < 10; i++){
     list.insert(arr[i],head);
   }
 
   printf("Before deleting\n");
   list.print_linked_list(head);
-  Node* target = head;
-  while(target != nullptr && target->val != 7){
+  Node<char> *target = head;
+  while(target != nullptr && target->val != 'f'){
     target = target->next;
   }
-  list.delete_node(target);
+  head = list.delete_node(target);
   printf("\n");
-  printf("After deleting 7\n");
+  printf("After deleting f\n");
   list.print_linked_list(head);
   printf("\n");
   //list.delete_linked_list(&head);
