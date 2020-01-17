@@ -1,26 +1,43 @@
 CC=g++
 OPT=-Og -std=c++11
 BUILD_DIR=build
-LIBS=
-INCLUDES= \
+
+CPP_SOURCES= \
+$(FFT_SOURCES) \
+$(LINKED_LIST_SOURCES)
+
+FFT_SOURCES = \
+fft/src/*.cpp \
+
+LINKED_LIST_SOURCES= \
+linked-list/src/*.cpp \
+linked-list/test/*.cpp
+
+DEPS= \
+hello_world/inc/*.hpp \
+fft/int/*.hpp
+
+CPP_INCLUDES= \
+-Ifft/inc \
 -Ilinked-list/inc
 
-CFLAGS = $(OPT) $(INCLUDES) $(LIBS) -Wall
+LIBS=
+CFLAGS = $(OPT) $(CPP_INCLUDES) $(LIBS) -Wall
 
-linked_list: $(BUILD_DIR)/test.o $(BUILD_DIR)/doubly_linked_list.o $(BUILD_DIR)/node.o
-	$(CC) $(CFLAGS) $(BUILD_DIR)/test.o $(BUILD_DIR)/doubly_linked_list.o $(BUILD_DIR)/node.o -o $(BUILD_DIR)/test
-	$(BUILD_DIR)/test
+all: linked-list fft test
 
-$(BUILD_DIR)/test.o: linked-list/test/test_doubly_linked_list.cpp
-	$(CC) $(CFLAGS) -c linked-list/test/test_doubly_linked_list.cpp -o $(BUILD_DIR)/test.o
+$(BUILD_DIR)%.o: $(CPP_SOURCES) $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
 
-$(BUILD_DIR)/doubly_linked_list.o: linked-list/src/doubly_linked_list.cpp
-	$(CC) $(CFLAGS) -c linked-list/src/doubly_linked_list.cpp -o $(BUILD_DIR)/doubly_linked_list.o
+linked-list: $(LINKED_LIST_SOURCES)
+	$(CC) $(CFLAGS) $(LINKED_LIST_SOURCES) -o linked-list/test/linked-list-test
+	linked-list/test/linked-list-test
 
-$(BUILD_DIR)/node.o: linked-list/src/node.cpp
-	$(CC) $(CFLAGS) -c linked-list/src/node.cpp -o $(BUILD_DIR)/node.o
+fft: $(FFT_SOURCES)
+	$(CC) $(CFLAGS) $(FFT_SOURCES) -o fft/test/fft_test
+	fft/test/test
 
-.PHONY: all test clean
+.PHONY: all test clean fft linked-list
 clean:
 	rm -f $(BUILD_DIR)/*
 	rm -f test/*.o
