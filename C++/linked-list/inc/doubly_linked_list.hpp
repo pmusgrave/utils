@@ -13,19 +13,15 @@ public:
 
   DoublyLinkedList() {
     this->head = nullptr;
-    std::cout << "constructor 1 " << this->head << std::endl;
   }
   DoublyLinkedList(T val) {
-    std::cout << "constructor 2" << val << std::endl;
     this->head = new Node<T>(val);
   }
   DoublyLinkedList(Node<T> *head) {
     this->head = head;
-    std::cout << "constructor 3 " << this->head->val << std::endl;
   };
   ~DoublyLinkedList() {
     if(this->head == nullptr) { return; }
-    std::cout << "destructor " << this->head->val << std::endl;
     Node<T> *current_node = this->head;
     while(current_node->next != nullptr){
       if(current_node->prev != nullptr){
@@ -45,7 +41,7 @@ public:
 
   // inserts new node with value val immediately following location
   // if location is a null pointer, insert node at end of list
-  void insert(T val, Node<T> *location) {
+  void insert(T val, Node<T> *location = nullptr) {
     if(location == nullptr && this->head == nullptr) {
       Node<T> *new_node = new Node<T>(val);
       this->head = new_node;
@@ -69,24 +65,22 @@ public:
     }
   }
 
-  Node<T> *delete_node(Node<T> *node) {
+  void delete_node(Node<T> *node) {
+    if(node == nullptr) { return; }
     if(node->prev == nullptr && node->next != nullptr) {
       node->next->prev = nullptr;
       this->head = node->next;
       delete node;
-      return this->head;
     }
     else if(node->prev == nullptr && node->next == nullptr){
       delete node;
-      return nullptr;
+      this->head = nullptr;
     }
     else {
       node->prev->next = node->next;
       node->next->prev = node->prev;
       delete node;
     }
-    // return head in case deleting head node;
-    return this->head;
   }
 
   Node<T>* find_val(T val) {

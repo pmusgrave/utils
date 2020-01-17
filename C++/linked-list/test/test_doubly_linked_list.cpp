@@ -49,19 +49,38 @@ TEST_CASE("Inserting nodes into list", "[]"){
   REQUIRE(null_initialized_list->head->val == 'a');
   REQUIRE(null_initialized_list->head->next->val == 'b');
 
-  //  null_initialized_list->print_linked_list();
   Node<char> *target = null_initialized_list->head;
   REQUIRE(target->val == 'a');
   null_initialized_list->insert('c',target);
   REQUIRE(null_initialized_list->head->val == 'a');
   REQUIRE(null_initialized_list->head->next->val == 'c');
   REQUIRE(null_initialized_list->head->next->next->val == 'b');
+
+  null_initialized_list->insert('d',nullptr);
+  REQUIRE(null_initialized_list->head->val == 'a');
+  REQUIRE(null_initialized_list->head->next->val == 'c');
+  REQUIRE(null_initialized_list->head->next->next->val == 'b');
+  REQUIRE(null_initialized_list->head->next->next->next->val == 'd');
+
   null_initialized_list->print_linked_list();
 }
 
-//TEST_CASE("Inserting nodes", "[insert]") {
-
-//}
+TEST_CASE("Deleting nodes", "[]") {
+  DoublyLinkedList<float> *float_list = new DoublyLinkedList<float>;
+  float_list->insert(0.0f);
+  float_list->insert(1.1f);
+  float_list->insert(2.3f);
+  float_list->insert(3.14f);
+  float_list->insert(7.2f);
+  float_list->insert(9.3f);
+  REQUIRE(float_list->head->val == 0.0f);
+  Node<float> *target = float_list->head->next;
+  REQUIRE(target->val == 1.1f);
+  float_list->delete_node(target);
+  REQUIRE(float_list->head->val == 0.0f);
+  REQUIRE(float_list->head->next->val == 2.3f);
+  float_list->print_linked_list();
+}
 
 /*int main(){
   Node<char> *head = new Node<char>('a');
