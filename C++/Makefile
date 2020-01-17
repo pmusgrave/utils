@@ -31,7 +31,6 @@ $(BUILD_DIR)%.o: $(CPP_SOURCES) $(DEPS)
 
 linked-list: $(BUILD_DIR)/linked-list-test.o $(BUILD_DIR)/doubly_linked_list.o $(BUILD_DIR)/node.o
 	$(CC) $(CFLAGS) $(BUILD_DIR)/linked-list-test.o $(BUILD_DIR)/doubly_linked_list.o $(BUILD_DIR)/node.o -o linked-list/test/linked-list-test
-	$(BUILD_DIR)/linked-list-test
 	ar rvs linked-list/lib/doubly_linked_list.a $(BUILD_DIR)/doubly_linked_list.o
 	ar rvs linked-list/lib/node.a $(BUILD_DIR)/node.o
 	linked-list/test/linked-list-test
