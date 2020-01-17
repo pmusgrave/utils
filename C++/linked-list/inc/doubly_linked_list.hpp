@@ -89,6 +89,9 @@ public:
       if (current_node->val == val){
         return current_node;
       }
+      else {
+        current_node = current_node->next;
+      }
     }
     return nullptr;
   }
