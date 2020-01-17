@@ -14,8 +14,8 @@ linked-list/src/*.cpp \
 linked-list/test/*.cpp
 
 DEPS= \
-hello_world/inc/*.hpp \
-fft/int/*.hpp
+linked-list/inc/*.hpp \
+fft/inc/*.hpp
 
 CPP_INCLUDES= \
 -Ifft/inc \
@@ -29,7 +29,7 @@ all: linked-list fft test
 $(BUILD_DIR)%.o: $(CPP_SOURCES) $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-linked-list: $(BUILD_DIR)/linked-list-test.o $(BUILD_DIR)/doubly_linked_list.o $(BUILD_DIR)/node.o
+linked-list: $(DEPS) $(BUILD_DIR)/linked-list-test.o $(BUILD_DIR)/doubly_linked_list.o $(BUILD_DIR)/node.o
 	$(CC) $(CFLAGS) $(BUILD_DIR)/linked-list-test.o $(BUILD_DIR)/doubly_linked_list.o $(BUILD_DIR)/node.o -o linked-list/test/linked-list-test
 	ar rvs linked-list/lib/doubly_linked_list.a $(BUILD_DIR)/doubly_linked_list.o
 	ar rvs linked-list/lib/node.a $(BUILD_DIR)/node.o
