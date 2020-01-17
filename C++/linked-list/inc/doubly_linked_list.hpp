@@ -65,6 +65,30 @@ public:
     }
   }
 
+  void insert(Node<T> *new_node, Node<T> *location = nullptr) {
+    if(new_node == nullptr) { return; }
+    if(location == nullptr && this->head == nullptr) {
+      this->head = new_node;
+    }
+    else if (location == nullptr && this->head != nullptr) {
+      Node<T> *current_node = this->head;
+      while (current_node->next != nullptr) {
+        current_node = current_node->next;
+      }
+      current_node->next = new_node;
+      new_node->prev = current_node;
+    }
+    else if(location != nullptr && this->head != nullptr){
+      Node<T> *temp = location->next;
+      location->next = new_node;
+      new_node->prev = location;
+      new_node->next = temp;
+      if(temp != nullptr) {
+        temp->prev = new_node;
+      }
+    }
+  }
+
   void delete_node(Node<T> *node) {
     if(node == nullptr) { return; }
     if(node->prev == nullptr && node->next != nullptr) {

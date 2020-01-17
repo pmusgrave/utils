@@ -62,6 +62,13 @@ TEST_CASE("Inserting nodes into list", "[]"){
   REQUIRE(null_initialized_list->head->next->next->val == 'b');
   REQUIRE(null_initialized_list->head->next->next->next->val == 'd');
 
+  Node<char> *new_node = new Node<char>('e');
+  null_initialized_list->insert(new_node, nullptr);
+  REQUIRE(null_initialized_list->head->next->next->next->next->val == 'e');
+  Node<char> *new_node2 = new Node<char>('f');
+  null_initialized_list->insert(new_node2, null_initialized_list->head);
+  REQUIRE(null_initialized_list->head->next->val == 'f');
+
   null_initialized_list->print_linked_list();
 }
 
