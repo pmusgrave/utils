@@ -29,9 +29,21 @@ all: linked-list fft test
 $(BUILD_DIR)%.o: $(CPP_SOURCES) $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-linked-list: $(LINKED_LIST_SOURCES)
-	$(CC) $(CFLAGS) $(LINKED_LIST_SOURCES) -o linked-list/test/linked-list-test
+linked-list: $(BUILD_DIR)/linked-list-test.o $(BUILD_DIR)/doubly_linked_list.o $(BUILD_DIR)/node.o
+	$(CC) $(CFLAGS) $(BUILD_DIR)/linked-list-test.o $(BUILD_DIR)/doubly_linked_list.o $(BUILD_DIR)/node.o -o linked-list/test/linked-list-test
+	$(BUILD_DIR)/linked-list-test
+	ar rvs linked-list/lib/doubly_linked_list.a $(BUILD_DIR)/doubly_linked_list.o
+	ar rvs linked-list/lib/node.a $(BUILD_DIR)/node.o
 	linked-list/test/linked-list-test
+
+$(BUILD_DIR)/linked-list-test.o: linked-list/test/test_doubly_linked_list.cpp
+	$(CC) $(CFLAGS) -c linked-list/test/test_doubly_linked_list.cpp -o $(BUILD_DIR)/linked-list-test.o
+
+$(BUILD_DIR)/doubly_linked_list.o: linked-list/src/doubly_linked_list.cpp
+	$(CC) $(CFLAGS) -c linked-list/src/doubly_linked_list.cpp -o $(BUILD_DIR)/doubly_linked_list.o
+
+$(BUILD_DIR)/node.o: linked-list/src/node.cpp
+	$(CC) $(CFLAGS) -c linked-list/src/node.cpp -o $(BUILD_DIR)/node.o
 
 fft: $(FFT_SOURCES)
 	$(CC) $(CFLAGS) $(FFT_SOURCES) -o fft/test/fft_test
@@ -41,3 +53,5 @@ fft: $(FFT_SOURCES)
 clean:
 	rm -f $(BUILD_DIR)/*
 	rm -f test/*.o
+	rm -f linked-list/lib/*
+	rm -f linked-list/test/linked-list-test
