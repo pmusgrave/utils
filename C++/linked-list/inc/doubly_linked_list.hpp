@@ -10,15 +10,19 @@ template<typename T>
 class DoublyLinkedList {
 public:
   Node<T>* head;
+  Node<T>* tail;
 
   DoublyLinkedList() {
     this->head = nullptr;
+    this->tail = nullptr;
   }
   DoublyLinkedList(T val) {
     this->head = new Node<T>(val);
+    this->tail = this->head;
   }
   DoublyLinkedList(Node<T> *head) {
     this->head = head;
+    this->tail = head;
   };
   ~DoublyLinkedList() {
     if(this->head == nullptr) { return; }
@@ -40,20 +44,21 @@ public:
   };
 
   // inserts new node with value val immediately following location
-  // if location is a null pointer, insert node at end of list
+  // if location is a null pointer, insert node at *beginning* of list
+  // to insert at end of list, pass in this->tail
+  // to insert at beginning of list, pass in nullptr
   void insert(T val, Node<T> *location = nullptr) {
     if(location == nullptr && this->head == nullptr) {
       Node<T> *new_node = new Node<T>(val);
       this->head = new_node;
+      this->tail = new_node;
     }
     else if (location == nullptr && this->head != nullptr) {
       Node<T> *current_node = this->head;
-      while (current_node->next != nullptr) {
-        current_node = current_node->next;
-      }
       Node<T> *new_node = new Node<T>(val);
-      current_node->next = new_node;
-      new_node->prev = current_node;
+      current_node->prev = new_node;
+      new_node->next = current_node;
+      this->head = new_node;
     }
     else if(location != nullptr && this->head != nullptr){
       Node<T> *new_node = new Node<T>(val);
@@ -65,6 +70,10 @@ public:
     }
   }
 
+  // inserts new node with value val immediately following location
+  // if location is a null pointer, insert node at *beginning* of list
+  // to insert at end of list, pass in this->tail
+  // to insert at beginning of list, pass in nullptr
   void insert(Node<T> *new_node, Node<T> *location = nullptr) {
     if(new_node == nullptr) { return; }
     if(location == nullptr && this->head == nullptr) {
@@ -72,11 +81,9 @@ public:
     }
     else if (location == nullptr && this->head != nullptr) {
       Node<T> *current_node = this->head;
-      while (current_node->next != nullptr) {
-        current_node = current_node->next;
-      }
-      current_node->next = new_node;
-      new_node->prev = current_node;
+      current_node->prev = new_node;
+      new_node->next = current_node;
+      this->head = new_node;
     }
     else if(location != nullptr && this->head != nullptr){
       Node<T> *temp = location->next;
