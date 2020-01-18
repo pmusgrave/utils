@@ -114,7 +114,9 @@ public:
     }
     else {
       node->prev->next = node->next;
-      node->next->prev = node->prev;
+      if(node->next != nullptr) {
+        node->next->prev = node->prev;
+      }
       delete node;
     }
   }
