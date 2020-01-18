@@ -69,6 +69,9 @@ public:
       if(temp != nullptr) {
         temp->prev = new_node;
       }
+      else {
+        this->tail = new_node;
+      }
     }
   }
 

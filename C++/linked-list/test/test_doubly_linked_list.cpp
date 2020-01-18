@@ -47,11 +47,13 @@ TEST_CASE("Inserting nodes into list", "[]"){
   REQUIRE(null_initialized_list->head->val == 'a');
   REQUIRE(null_initialized_list->head->prev == nullptr);
   REQUIRE(null_initialized_list->head->next == nullptr);
+  REQUIRE(null_initialized_list->tail->val == 'a');
 
   null_initialized_list->insert('b',nullptr);
   REQUIRE(null_initialized_list->head != nullptr);
   REQUIRE(null_initialized_list->head->val == 'b');
   REQUIRE(null_initialized_list->head->next->val == 'a');
+  REQUIRE(null_initialized_list->tail->val == 'a');
 
   Node<char> *target = null_initialized_list->head;
   REQUIRE(target->val == 'b');
@@ -59,6 +61,7 @@ TEST_CASE("Inserting nodes into list", "[]"){
   REQUIRE(null_initialized_list->head->val == 'b');
   REQUIRE(null_initialized_list->head->next->val == 'c');
   REQUIRE(null_initialized_list->head->next->next->val == 'a');
+  REQUIRE(null_initialized_list->tail->val == 'a');
 
   null_initialized_list->insert('d',nullptr);
   REQUIRE(null_initialized_list->head->val == 'd');
