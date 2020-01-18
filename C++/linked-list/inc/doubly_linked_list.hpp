@@ -66,7 +66,9 @@ public:
       location->next = new_node;
       new_node->prev = location;
       new_node->next = temp;
-      temp->prev = new_node;
+      if(temp != nullptr) {
+        temp->prev = new_node;
+      }
     }
   }
 
