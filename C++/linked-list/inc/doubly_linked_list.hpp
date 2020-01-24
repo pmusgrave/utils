@@ -11,10 +11,12 @@ class DoublyLinkedList {
 public:
   Node<T>* head;
   Node<T>* tail;
+  uint size;
 
   DoublyLinkedList() {
     this->head = nullptr;
     this->tail = nullptr;
+    this->size = 0;
   }
   DoublyLinkedList(T val) {
     this->head = new Node<T>(val);
@@ -48,6 +50,7 @@ public:
   // to insert at end of list, pass in this->tail
   // to insert at beginning of list, pass in nullptr
   void insert(T val, Node<T> *location = nullptr) {
+    this->size++;
     if(location == nullptr && this->head == nullptr) {
       Node<T> *new_node = new Node<T>(val);
       this->head = new_node;
@@ -80,6 +83,7 @@ public:
   // to insert at end of list, pass in this->tail
   // to insert at beginning of list, pass in nullptr
   void insert(Node<T> *new_node, Node<T> *location = nullptr) {
+    this->size++;
     if(new_node == nullptr) { return; }
     if(location == nullptr && this->head == nullptr) {
       this->head = new_node;
@@ -102,6 +106,7 @@ public:
   }
 
   void delete_node(Node<T> *node) {
+    this->size--;
     if(node == nullptr) { return; }
     if(node->prev == nullptr && node->next != nullptr) {
       node->next->prev = nullptr;

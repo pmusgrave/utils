@@ -21,6 +21,7 @@ TEST_CASE("Creating new nodes", "[node_constructor]") {
 
 TEST_CASE("Creating a new linked list", "[]") {
   DoublyLinkedList<int> *list = new DoublyLinkedList<int>;
+  REQUIRE(list->size == 0);
   REQUIRE(list->head == nullptr);
   REQUIRE(list->tail == nullptr);
   delete list;
@@ -48,12 +49,14 @@ TEST_CASE("Inserting nodes into list", "[]"){
   REQUIRE(null_initialized_list->head->prev == nullptr);
   REQUIRE(null_initialized_list->head->next == nullptr);
   REQUIRE(null_initialized_list->tail->val == 'a');
+  REQUIRE(null_initialized_list->size == 1);
 
   null_initialized_list->insert('b',nullptr);
   REQUIRE(null_initialized_list->head != nullptr);
   REQUIRE(null_initialized_list->head->val == 'b');
   REQUIRE(null_initialized_list->head->next->val == 'a');
   REQUIRE(null_initialized_list->tail->val == 'a');
+  REQUIRE(null_initialized_list->size == 2);
 
   Node<char> *target = null_initialized_list->head;
   REQUIRE(target->val == 'b');
@@ -62,6 +65,7 @@ TEST_CASE("Inserting nodes into list", "[]"){
   REQUIRE(null_initialized_list->head->next->val == 'c');
   REQUIRE(null_initialized_list->head->next->next->val == 'a');
   REQUIRE(null_initialized_list->tail->val == 'a');
+  REQUIRE(null_initialized_list->size == 3);
 
   null_initialized_list->insert('d',nullptr);
   REQUIRE(null_initialized_list->head->val == 'd');
@@ -69,6 +73,7 @@ TEST_CASE("Inserting nodes into list", "[]"){
   REQUIRE(null_initialized_list->head->next->next->val == 'c');
   REQUIRE(null_initialized_list->head->next->next->next->val == 'a');
   REQUIRE(null_initialized_list->tail->val == 'a');
+  REQUIRE(null_initialized_list->size == 4);
 
   Node<char> *new_node = new Node<char>('e');
   null_initialized_list->insert(new_node, nullptr);
@@ -88,10 +93,12 @@ TEST_CASE("Deleting nodes", "[]") {
   float_list->insert(3.14f);
   float_list->insert(7.2f);
   float_list->insert(9.3f);
+  REQUIRE(float_list->size == 6);
   REQUIRE(float_list->head->val == 9.3f);
   Node<float> *target = float_list->head->next;
   REQUIRE(target->val == 7.2f);
   float_list->delete_node(target);
+  REQUIRE(float_list->size == 5);
   REQUIRE(float_list->head->val == 9.3f);
   REQUIRE(float_list->head->next->val == 3.14f);
   float_list->print_linked_list();
@@ -105,6 +112,7 @@ TEST_CASE("Finding nodes", "[]") {
   double_list->insert(1.78);
   double_list->insert(9.10);
   double_list->insert(11.2);
+  REQUIRE(double_list->size == 6);
   REQUIRE(double_list->find_val(1.2) == double_list->tail);
   REQUIRE(double_list->find_val(1.56) == double_list->head->next->next->next);
   REQUIRE(double_list->find_val(3.14) == nullptr);

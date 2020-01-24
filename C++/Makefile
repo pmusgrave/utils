@@ -10,8 +10,8 @@ FFT_SOURCES = \
 fft/src/*.cpp \
 
 LINKED_LIST_SOURCES= \
-linked-list/src/*.cpp \
-linked-list/test/*.cpp
+linked-list/src/doubly_linked_list.cpp \
+linked-list/src/node.cpp
 
 DEPS= \
 linked-list/inc/*.hpp \
