@@ -1,12 +1,12 @@
-#ifndef FFT_H
-#define FFT_H
+#ifndef FFT_HPP
+#define FFT_HPP
 
-#include<stdlib.h>
-#include<cmath>
-#include<complex>
-// e => M_E, pi => M_PI
+#include <complex>
+#include <vector>
 
-double* fft(double * coeff_vector, size_t);
-void print_coeffs(double* coeff_vector, size_t n);
+using namespace std;
+
+vector<complex<double>>& fft(vector<complex<double>>&, size_t);
+void print_coeffs(vector<complex<double>>*, size_t n);
 
 #endif
