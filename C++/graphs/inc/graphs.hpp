@@ -58,7 +58,6 @@ public:
 		typename std::map<Vertex<T>*, std::vector<Vertex<T>*>>::iterator it;
 		for(it = adj.begin(); it != adj.end(); ++it) {
 			vertices.push_back(it->first);
-			std::cout << it->first->key << "\n";
 		}
 
 		for (auto s : vertices) {
@@ -74,7 +73,7 @@ private:
 		for (auto v : adj[s]) {
 			if (dfs_parent.count(v) == 0) {
 				dfs_parent[v] = s;
-				std::cout << "DFS: Edge found between " << v->key << " and " << s->key << std::endl;
+				std::cout << "DFS: Edge found between " << s->key << " and " << v->key << std::endl;
 				dfs_visit(v);
 			}
 		}
