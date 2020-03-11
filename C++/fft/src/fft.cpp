@@ -17,7 +17,7 @@ vector<complex<double>>& fft(vector<complex<double>>&coeff_vector, size_t n) {
   vector<complex<double>> coeff_odd;
   coeff_even.reserve(n/2);
   coeff_odd.reserve(n/2);
-  for (int i = 0; i < n; i++) {
+  for (unsigned int i = 0; i < n; i++) {
     if (i%2 == 0) {
       coeff_even.push_back(coeff_vector[i]);
     }
@@ -34,13 +34,13 @@ vector<complex<double>>& fft(vector<complex<double>>&coeff_vector, size_t n) {
   if ( (n/2) == 1) {
     y_out[0] = y_0[0] + w * y_1[0];
   }
-  for (int k = 0; k < n/2 - 1; k++) {
+  for (unsigned int k = 0; k < n/2 - 1; k++) {
     y_out[k] = y_0[k] + w * y_1[k];
     y_out[k + n/2] = y_0[k] - w * y_1[k];
     w = w * wn;
   }
 
-  for (int i = 0; i < n; i++) {
+  for (unsigned int i = 0; i < n; i++) {
     cout << y_out[i] << endl;
   }
   return y_out;

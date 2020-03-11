@@ -14,18 +14,24 @@ LINKED_LIST_SOURCES= \
 linked-list/src/doubly_linked_list.cpp \
 linked-list/src/node.cpp
 
+GRAPHS_SOURCES = \
+graphs/src/*.cpp \
+graphs/test/*.cpp
+
 DEPS= \
 linked-list/inc/*.hpp \
-fft/inc/*.hpp
+fft/inc/*.hpp \
+graphs/inc/*.hpp
 
 CPP_INCLUDES= \
+-Ilinked-list/inc \
 -Ifft/inc \
--Ilinked-list/inc
+-Igraphs/inc
 
 LIBS=
 CFLAGS = $(OPT) $(CPP_INCLUDES) $(LIBS) -Wall
 
-all: linked-list fft test
+all: linked-list fft graphs test
 
 $(BUILD_DIR)%.o: $(CPP_SOURCES) $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
@@ -48,6 +54,10 @@ $(BUILD_DIR)/node.o: linked-list/src/node.cpp
 fft: $(FFT_SOURCES)
 	$(CC) $(CFLAGS) $(FFT_SOURCES) -o fft/test/test_fft
 	fft/test/test_fft
+
+graphs: $(GRAPHS_SOURCES)
+	$(CC) $(CFLAGS) $(GRAPHS_SOURCES) -o graphs/test/test_graphs
+	graphs/test/test_graphs
 
 .PHONY: all test clean fft linked-list
 clean:
