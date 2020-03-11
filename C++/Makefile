@@ -1,5 +1,5 @@
 CC=g++
-OPT=-Og -std=c++11
+OPT=-Og -std=c++17
 BUILD_DIR=build
 
 CPP_SOURCES= \
@@ -8,6 +8,7 @@ $(LINKED_LIST_SOURCES)
 
 FFT_SOURCES = \
 fft/src/*.cpp \
+fft/test/*.cpp
 
 LINKED_LIST_SOURCES= \
 linked-list/src/doubly_linked_list.cpp \
@@ -45,8 +46,8 @@ $(BUILD_DIR)/node.o: linked-list/src/node.cpp
 	$(CC) $(CFLAGS) -c linked-list/src/node.cpp -o $(BUILD_DIR)/node.o
 
 fft: $(FFT_SOURCES)
-	$(CC) $(CFLAGS) $(FFT_SOURCES) -o fft/test/fft_test
-	fft/test/test
+	$(CC) $(CFLAGS) $(FFT_SOURCES) -o fft/test/test_fft
+	fft/test/test_fft
 
 .PHONY: all test clean fft linked-list
 clean:
