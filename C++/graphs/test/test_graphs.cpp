@@ -77,5 +77,5 @@ TEST_CASE("search algorithms", "[graphs]"){
 	REQUIRE( test_graph.adj[&test_vertex_v].size() == 2 );
 
 	test_graph.bfs(&test_vertex_s);
-	test_graph.dfs(&test_vertex_s);
+	test_graph.dfs();
 }

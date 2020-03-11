@@ -51,7 +51,7 @@ public:
 		}
 	}
 
-	void dfs(Vertex<T>* s) {
+	void dfs() {
 		std::map<Vertex<T>*, Vertex<T>*> parent;
 
 		std::vector<Vertex<T>*> vertices;
