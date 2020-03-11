@@ -10,13 +10,11 @@ class Vertex {
 public:
 	Vertex(T key) {
 		this->key = key;
-		this->parent = nullptr;
 	}
 	Vertex() {}
 	~Vertex() {}
 
 	T key;
-	Vertex<T> *parent;
 };
 
 template<typename T>
@@ -24,6 +22,9 @@ class Graph {
 public:
 	Graph(){}
 	~Graph(){}
+
+	std::map<Vertex<T>*, std::vector<Vertex<T>*>> adj;
+	std::map<Vertex<T>*, Vertex<T>*> dfs_parent;
 
 	void bfs(Vertex<T> *s) {
 		std::map<Vertex<T>*, int> level;
@@ -36,7 +37,7 @@ public:
 			std::vector<Vertex<T>*> next;
 			for (auto u : frontier) {
 				for (auto v : adj[u]) {
-					std::cout << "Edge found between " << u->key << " and " << v->key << std::endl;
+					std::cout << "BFS: Edge found between " << u->key << " and " << v->key << std::endl;
 					if (level.count(v) == 0) {
 						level[v] = i;
 						parent[v] = u;
@@ -50,7 +51,34 @@ public:
 		}
 	}
 
-	std::map<Vertex<T>*, std::vector<Vertex<T>*>> adj;
+	void dfs(Vertex<T>* s) {
+		std::map<Vertex<T>*, Vertex<T>*> parent;
+
+		std::vector<Vertex<T>*> vertices;
+		typename std::map<Vertex<T>*, std::vector<Vertex<T>*>>::iterator it;
+		for(it = adj.begin(); it != adj.end(); ++it) {
+			vertices.push_back(it->first);
+			std::cout << it->first->key << "\n";
+		}
+
+		for (auto s : vertices) {
+			if (parent.count(s) == 0) {
+				parent[s] = nullptr;
+				dfs_visit(s);
+			}
+		}
+	}
+
+private:
+	void dfs_visit(Vertex<T>* s) {
+		for (auto v : adj[s]) {
+			if (dfs_parent.count(v) == 0) {
+				dfs_parent[v] = s;
+				std::cout << "DFS: Edge found between " << v->key << " and " << s->key << std::endl;
+				dfs_visit(v);
+			}
+		}
+	}
 };
 
 #endif

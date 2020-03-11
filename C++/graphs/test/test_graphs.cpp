@@ -8,10 +8,10 @@ using namespace std;
 TEST_CASE("vertices", "[graphs]"){
 	Vertex<int> test_vertex(1);
 	REQUIRE(test_vertex.key == 1);
-	REQUIRE(test_vertex.parent == nullptr);
+	// REQUIRE(test_vertex.parent == nullptr);
 }
 
-TEST_CASE("adjacency lists", "[graphs]"){
+TEST_CASE("search algorithms", "[graphs]"){
 	Graph<char> test_graph;
 	Vertex<char> test_vertex_a('a');
 	Vertex<char> test_vertex_s('s');
@@ -77,4 +77,5 @@ TEST_CASE("adjacency lists", "[graphs]"){
 	REQUIRE( test_graph.adj[&test_vertex_v].size() == 2 );
 
 	test_graph.bfs(&test_vertex_s);
+	test_graph.dfs(&test_vertex_s);
 }
