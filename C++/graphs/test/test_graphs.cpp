@@ -24,6 +24,7 @@ TEST_CASE("search algorithms", "[graphs]"){
 
 	std::vector<Vertex<char>*> adj_a;
 	adj_a.push_back(&test_vertex_s);
+	test_vertex_a
 	adj_a.push_back(&test_vertex_z);
 
 	std::vector<Vertex<char>*> adj_s;

@@ -15,6 +15,7 @@ public:
 	~Vertex() {}
 
 	T key;
+	std::map<Vertex<T>*, int> weights;
 };
 
 template<typename T>
@@ -68,15 +69,43 @@ public:
 		}
 	}
 
+	void dijkstras(Vertex<T> *start) {
+		for (auto v : vertices) {
+			dijkstra_initialize();
+			std::vector<Vertex<T>*> S;
+			std::vector<Vertex<T>*> Q;
+			for (auto v : vertices) {
+				Q.push_back(v);
+			}
+
+			Vertex *u;
+			while (Q.size() != 0) {
+				u = extract_min(Q);
+				S.push_back(u);
+				for (auto v : adj[u]) {
+					update_weight(u,v);
+				}
+			}
+		}
+	}
+
 private:
-	void dfs_visit(Vertex<T>* s) {
-		for (auto v : adj[s]) {
+	void dfs_visit(Vertex<T>* start) {
+		for (auto v : adj[start]) {
 			if (dfs_parent.count(v) == 0) {
-				dfs_parent[v] = s;
-				std::cout << "DFS: Edge found between " << s->key << " and " << v->key << std::endl;
+				dfs_parent[v] = start;
+				std::cout << "DFS: Edge found between " << start->key << " and " << v->key << std::endl;
 				dfs_visit(v);
 			}
 		}
+	}
+
+	void dijkstra_initialize() {
+
+	}
+
+	void update_weight(Vertex* u, Vertex* v) {
+		
 	}
 };
 
