@@ -70,6 +70,12 @@ public:
 	}
 
 	void dijkstras(Vertex<T> *start) {
+		std::vector<Vertex<T>*> vertices;
+		typename std::map<Vertex<T>*, std::vector<Vertex<T>*>>::iterator it;
+		for(it = adj.begin(); it != adj.end(); ++it) {
+			vertices.push_back(it->first);
+		}
+
 		for (auto v : vertices) {
 			dijkstra_initialize();
 			std::vector<Vertex<T>*> S;
@@ -78,7 +84,7 @@ public:
 				Q.push_back(v);
 			}
 
-			Vertex *u;
+			Vertex<T> *u;
 			while (Q.size() != 0) {
 				u = extract_min(Q);
 				S.push_back(u);
@@ -104,8 +110,8 @@ private:
 
 	}
 
-	void update_weight(Vertex* u, Vertex* v) {
-		
+	void update_weight(Vertex<T>* u, Vertex<T>* v) {
+
 	}
 };
 
