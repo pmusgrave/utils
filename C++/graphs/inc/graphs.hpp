@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <limits>
 
 template<typename T>
 class Vertex {
@@ -50,6 +51,7 @@ public:
 			frontier = next;
 			i++;
 		}
+		std::cout << "BFS complete" << std::endl << std::endl;
 	}
 
 	void dfs() {
@@ -67,32 +69,69 @@ public:
 				dfs_visit(s);
 			}
 		}
+		std::cout << "DFS complete" << std::endl << std::endl;
 	}
 
-	void dijkstras(Vertex<T> *start) {
+	void dijkstras() {
 		std::vector<Vertex<T>*> vertices;
 		typename std::map<Vertex<T>*, std::vector<Vertex<T>*>>::iterator it;
 		for(it = adj.begin(); it != adj.end(); ++it) {
 			vertices.push_back(it->first);
 		}
 
-		for (auto v : vertices) {
-			dijkstra_initialize();
+		for (auto start : vertices) {
+			std::map<Vertex<T>*, Vertex<T>*> predecessor;
+			std::map<Vertex<T>*, double> distance;
+			for (auto v : vertices) {
+				distance[v] = std::numeric_limits<float>::infinity();
+				predecessor[v] = nullptr;
+			}
+			distance[start] = 0;
+
 			std::vector<Vertex<T>*> S;
 			std::vector<Vertex<T>*> Q;
 			for (auto v : vertices) {
 				Q.push_back(v);
 			}
 
-			Vertex<T> *u;
+			Vertex<T> *u = start;
 			while (Q.size() != 0) {
-				u = extract_min(Q);
+				u = extract_min(u, Q, distance);
+				if (u == nullptr) {
+					continue;
+				}
+
+				std::cout << "Moving to vertex " << u->key << std::endl;
 				S.push_back(u);
 				for (auto v : adj[u]) {
-					update_weight(u,v);
+					update_distance(u,v, distance, predecessor);
+					std::cout << "distance between " << start->key << " and " << v->key
+						<< " is " << distance[v] << std::endl;
 				}
+				std::cout << "Dijkstra: " << u->key << std::endl;
+			}
+			std::cout << std::endl;
+		}
+	}
+
+	double get_edge_weight(Vertex<T>* u, Vertex<T>* v) {
+		bool v_has_edge = false;
+		for (auto outgoing_vertex : adj[u]) {
+			if (outgoing_vertex == v) {
+				v_has_edge = true;
 			}
 		}
+
+		if (!v_has_edge) {
+			return std::numeric_limits<float>::infinity();
+		}
+		else {
+			return u->weights[v];
+		}
+	}
+
+	void set_edge_weight(Vertex<T>* u, Vertex<T>* v, int weight) {
+		u->weights[v] = weight;
 	}
 
 private:
@@ -106,12 +145,35 @@ private:
 		}
 	}
 
-	void dijkstra_initialize() {
-
+	void update_distance(Vertex<T>* u, 
+			Vertex<T>* v, 
+			std::map<Vertex<T>*, double> &distance,
+			std::map<Vertex<T>*, Vertex<T>*> &predecessor) {
+		if (distance[v] > (distance[u] + get_edge_weight(u,v))) {
+			distance[v] = distance[u] + get_edge_weight(u,v);
+			predecessor[v] = u;
+		}
 	}
 
-	void update_weight(Vertex<T>* u, Vertex<T>* v) {
+	Vertex<T>* extract_min(Vertex<T>* current, std::vector<Vertex<T>*> &Q, std::map<Vertex<T>*, double> &distance) {
+		Vertex<T> *min_vertex = Q.front(); 
+		for (auto v : Q) {
+			if (distance[v] < distance[min_vertex]) {
+				min_vertex = v;
+			}
+		}
 
+		Q.erase(std::remove(Q.begin(), Q.end(), min_vertex), Q.end());
+		std::vector<Vertex<T>*> vec = adj[current];
+		if (std::find(vec.begin(), vec.end(), min_vertex) != vec.end()) {
+			return min_vertex;	
+		}
+		else if (min_vertex == current) {
+			return min_vertex;
+		}
+		else {
+			return nullptr;
+		}
 	}
 };
 
