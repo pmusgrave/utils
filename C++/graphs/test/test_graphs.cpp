@@ -129,4 +129,5 @@ TEST_CASE("dijkstra's algorithm", "[graphs]"){
 	REQUIRE( test_graph.get_edge_weight(&test_vertex_a, &test_vertex_e) == std::numeric_limits<float>::infinity() );
 
 	test_graph.dijkstras();
+	std::cout << test_graph.bellman_ford() << std::endl;
 }

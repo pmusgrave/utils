@@ -82,6 +82,7 @@ public:
 		for (auto start : vertices) {
 			std::map<Vertex<T>*, Vertex<T>*> predecessor;
 			std::map<Vertex<T>*, double> distance;
+			// initialize distance values
 			for (auto v : vertices) {
 				distance[v] = std::numeric_limits<float>::infinity();
 				predecessor[v] = nullptr;
@@ -112,6 +113,45 @@ public:
 			}
 			std::cout << std::endl;
 		}
+	}
+
+	int bellman_ford() {
+		std::cout << "Bellman-Ford" << std::endl;
+
+		std::vector<Vertex<T>*> vertices;
+		typename std::map<Vertex<T>*, std::vector<Vertex<T>*>>::iterator it;
+		for(it = adj.begin(); it != adj.end(); ++it) {
+			vertices.push_back(it->first);
+		}
+
+		for (auto start : vertices) {
+			std::map<Vertex<T>*, Vertex<T>*> predecessor;
+			std::map<Vertex<T>*, double> distance;
+			// initialize distance values
+			for (auto v : vertices) {
+				distance[v] = std::numeric_limits<float>::infinity();
+				predecessor[v] = nullptr;
+			}
+			distance[start] = 0;
+
+			for (unsigned int i = 1; i < vertices.size() - 1 ; i++) {
+				for (auto u : vertices) {
+					for (auto v : adj[u]) {
+						update_distance(u,v,distance,predecessor);
+					}
+				}
+			}
+
+			for (auto u : vertices) {
+				for (auto v : adj[u]) {
+					if (distance[v] > distance[u] + get_edge_weight(u,v)) {
+						return -1; // implies negative edge weight cycle exists
+					}
+				}
+			}
+		}
+
+		return 0;
 	}
 
 	double get_edge_weight(Vertex<T>* u, Vertex<T>* v) {
