@@ -4,7 +4,8 @@ BUILD_DIR=build
 
 CPP_SOURCES= \
 $(FFT_SOURCES) \
-$(LINKED_LIST_SOURCES)
+$(LINKED_LIST_SOURCES) \
+$(VEB_TREE_SOURCES)
 
 FFT_SOURCES = \
 fft/src/*.cpp \
@@ -18,20 +19,26 @@ GRAPHS_SOURCES = \
 graphs/src/*.cpp \
 graphs/test/*.cpp
 
+VEB_TREE_SOURCES = \
+veb-tree/src/*.cpp \
+veb-tree/test/*.cpp
+
 DEPS= \
 linked-list/inc/*.hpp \
 fft/inc/*.hpp \
-graphs/inc/*.hpp
+graphs/inc/*.hpp \
+veb-tree/inc/*.hpp
 
 CPP_INCLUDES= \
 -Ilinked-list/inc \
 -Ifft/inc \
--Igraphs/inc
+-Igraphs/inc \
+-Iveb-tree/inc
 
 LIBS=
 CFLAGS = $(OPT) $(CPP_INCLUDES) $(LIBS) -Wall
 
-all: linked-list fft graphs test
+all: linked-list fft graphs test veb-tree
 
 $(BUILD_DIR)%.o: $(CPP_SOURCES) $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
@@ -58,6 +65,10 @@ fft: $(FFT_SOURCES)
 graphs: $(GRAPHS_SOURCES)
 	$(CC) $(CFLAGS) $(GRAPHS_SOURCES) -o graphs/test/test_graphs
 	graphs/test/test_graphs
+
+veb-tree: $(VEB_TREE_SOURCES)
+	$(CC) $(CFLAGS) $(VEB_TREE_SOURCES) -o veb-tree/test/test-veb-tree
+	veb-tree/test/test-veb-tree
 
 .PHONY: all test clean fft linked-list
 clean:
