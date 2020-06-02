@@ -23,10 +23,18 @@ TEST_CASE("inserting into van Emde Boas tree", "[veb-tree]"){
 }
 
 TEST_CASE("finding successor", "[veb-tree]") {
-	// VebTree<int> test_veb_tree(16);
+	VebTree<int> test_veb_tree(16);
 
-	// test_veb_tree.insert(2);
-	// test_veb_tree.insert(3);
+	test_veb_tree.insert(2);
+	test_veb_tree.insert(5);
+	test_veb_tree.insert(3);
+	test_veb_tree.insert(8);
+	test_veb_tree.insert(1);
+	test_veb_tree.insert(7);
 
-	// REQUIRE(test_veb_tree.successor(2) == 3);		
+	REQUIRE(test_veb_tree.successor(1) == 2);
+	REQUIRE(test_veb_tree.successor(2) == 3);
+	REQUIRE(test_veb_tree.successor(3) == 5);
+	REQUIRE(test_veb_tree.successor(5) == 7);
+	REQUIRE(test_veb_tree.successor(7) == 8);
 }
