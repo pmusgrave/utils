@@ -3,34 +3,40 @@
 
 #include <vector>
 #include <cmath>
-#include "cluster.hpp"
 #include <iostream>
 
 template<typename T>
-
 class VebTree {
 public:
-	VebTree() {
-		min_set = false;
-		max_set = false;
-	}
 	VebTree(long universe_size) {
+		std::cout << universe_size << std::endl;
 		min_set = false;
 		max_set = false;
 		this->universe_size = universe_size;
 
-		// there should be sqrt(universe_size) clusters, each of which has
-		// sqrt(universe_size) elements.
-		long cluster_size = ceil(sqrt(universe_size));
-		this->clusters.reserve(cluster_size);
-		this->summary.reserve(cluster_size);
+		if (universe_size <= 2 ) {
+			return;
+		}
+		else {
+			// there should be sqrt(universe_size) clusters, each of which has
+			// sqrt(universe_size) elements.
+			long cluster_size = ceil(sqrt(universe_size));
+			this->clusters.reserve(cluster_size);
+			this->summary = new VebTree<T>(cluster_size);
 
-		for (int i = 0; i < cluster_size; i++) {
-			Cluster<T> c(cluster_size);
-			this->clusters.push_back(c);
+			for (int i = 0; i < cluster_size; i++) {
+				VebTree<T>* cluster = new VebTree<T>(cluster_size);
+				this->clusters.push_back(cluster);
+			}	
 		}
 	}
-	~VebTree() {}
+	~VebTree() {
+		// delete this->summary;
+		// long cluster_size = ceil(sqrt(universe_size));
+		// for (int i = 0; i < cluster_size; i++) {
+			// delete this->clusters[i];
+		// }
+	}
 
 	void insert(T val) {
 		std::cout << "summary index: " << val 
@@ -38,11 +44,32 @@ public:
 			<< " low: " << low(val)
 			<< std::endl;
 
+		if (this->universe_size <= 2) {
+			if (!this->min_set) {
+				this->min = val;
+				this->max = val;
+				this->min_set = 1;
+				this->max_set = 1;
+			}
+
+			if (val < this->min) {
+				this->max = this->min;
+				this->min = val;
+			}
+
+			if (val > this->max) {
+				this->min = this->max;
+				this->max = val;
+			}
+
+			return;
+		}
+
 		if (!this->min_set) {
 			this->min = val;
 			this->max = val;
-			this->min_set = true;
-			this->max_set = true;
+			this->min_set = 1;
+			this->max_set = 1;
 			return;
 		}
 
@@ -56,21 +83,45 @@ public:
 			this->max = val;
 		}
 
-		std::cout << "min" << this->min 
-			<< "max " << this->max << std::endl;
+		// std::cout << "min " << this->min 
+		// 	<< " max " << this->max << std::endl;
 
-		if (!this->clusters[high(val)].is_min_set()) {
-			this->summary[high(val)] = 1;
+		if (!this->clusters[high(val)]->min_set) {
+			this->summary->insert(high(val));
 		}
 
-		this->clusters[high(val)].insert(low(val));
+		this->clusters[high(val)]->insert(low(val));
 	}
 
 	void del() {}
 
-	T successor() {}
+	T successor(T val) {
+		// if (val < this->min) {
+		// 	return this->min;
+		// }
+
+		// int i = high(val);
+		// int j;
+		// if (low(val) < this->clusters[i].max) {
+		// 	j = this->clusters[i].successor(low(val));
+		// }
+		// else {
+		// 	i = this->summary.succesor(high(val));
+		// 	j = this->clusters[i].min;
+		// }
+
+		// return index(i,j);
+	}
 
 	T get(int index) {
+		if (this->universe_size <= 2) {
+			if (this->min == index || this->max == index) {
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		}
 		if (index == this->min) {
 			return 1;
 		}
@@ -78,7 +129,7 @@ public:
 			return 1;
 		}
 		else {
-			return this->clusters[high(index)].get(low(index));	
+			return this->clusters[high(index)]->get(low(index));	
 		}
 	}
 
@@ -88,8 +139,8 @@ private:
 	bool min_set;
 	bool max_set;
 	long universe_size;
-	std::vector<Cluster<T>> clusters;
-	std::vector<bool> summary;
+	std::vector<VebTree<T>*> clusters;
+	VebTree<T> *summary;
 
 	T high(T x) {
 		return floor(x / (int)ceil(sqrt(universe_size)));
