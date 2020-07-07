@@ -6,13 +6,13 @@
 using namespace std;
 
 TEST_CASE("initialization", "[veb-tree]"){
-	VebTree<int> test_veb_tree(1);
-	// VebTree<int> test_veb_tree_2(pow(2, 32));
+	VebTree test_veb_tree(1);
+	// VebTree> test_veb_tree_2(pow(2, 32));
 	REQUIRE(1 == 1);
 }
 
 TEST_CASE("inserting into van Emde Boas tree", "[veb-tree]"){
-	VebTree<int> test_veb_tree(16);
+	VebTree test_veb_tree(16);
 
 	REQUIRE(test_veb_tree.get(2) == 0);
 	test_veb_tree.insert(2);
@@ -23,7 +23,7 @@ TEST_CASE("inserting into van Emde Boas tree", "[veb-tree]"){
 }
 
 TEST_CASE("finding successor", "[veb-tree]") {
-	VebTree<int> test_veb_tree(16);
+	VebTree test_veb_tree(16);
 
 	test_veb_tree.insert(2);
 	test_veb_tree.insert(5);
@@ -40,7 +40,7 @@ TEST_CASE("finding successor", "[veb-tree]") {
 }
 
 TEST_CASE("deleting", "[veb-tree]") {
-	VebTree<int> test_veb_tree(16);
+	VebTree test_veb_tree(16);
 
 	test_veb_tree.insert(2);
 	test_veb_tree.insert(5);
@@ -97,7 +97,7 @@ TEST_CASE("deleting", "[veb-tree]") {
 	REQUIRE(test_veb_tree.get(5) == 0);
 	REQUIRE(test_veb_tree.get(7) == 0);
 	REQUIRE(test_veb_tree.get(8) == 0);
-	
+
 	// test deleting a value from an empty tree
 	test_veb_tree.del(3);
 	REQUIRE(test_veb_tree.get(1) == 0);
