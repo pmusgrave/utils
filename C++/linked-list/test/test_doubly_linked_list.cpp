@@ -1,6 +1,8 @@
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
+
 #include <iostream>
+
 #include "doubly_linked_list.hpp"
 #include "node.hpp"
 
@@ -83,6 +85,8 @@ TEST_CASE("Inserting nodes into list", "[]"){
   REQUIRE(null_initialized_list->head->next->val == 'f');
 
   null_initialized_list->print_linked_list();
+
+  delete null_initialized_list;
 }
 
 TEST_CASE("Deleting nodes", "[]") {
@@ -102,6 +106,8 @@ TEST_CASE("Deleting nodes", "[]") {
   REQUIRE(float_list->head->val == 9.3f);
   REQUIRE(float_list->head->next->val == 3.14f);
   float_list->print_linked_list();
+
+  delete float_list;
 }
 
 TEST_CASE("Finding nodes", "[]") {
@@ -116,4 +122,5 @@ TEST_CASE("Finding nodes", "[]") {
   REQUIRE(double_list->find_val(1.2) == double_list->tail);
   REQUIRE(double_list->find_val(1.56) == double_list->head->next->next->next);
   REQUIRE(double_list->find_val(3.14) == nullptr);
+  delete double_list;
 }
