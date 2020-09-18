@@ -7,6 +7,9 @@ $(FFT_SOURCES) \
 $(LINKED_LIST_SOURCES) \
 $(VEB_TREE_SOURCES)
 
+BENCHMARKING_SOURCES = \
+benchmarking/src/*.cpp
+
 FFT_SOURCES = \
 fft/src/*.cpp \
 fft/test/*.cpp
@@ -24,12 +27,14 @@ veb-tree/src/*.cpp \
 veb-tree/test/*.cpp
 
 DEPS= \
+benchmarking/inc/*.hpp \
 linked-list/inc/*.hpp \
 fft/inc/*.hpp \
 graphs/inc/*.hpp \
 veb-tree/inc/*.hpp
 
 CPP_INCLUDES= \
+-Ibenchmarking/inc \
 -Ilinked-list/inc \
 -Ifft/inc \
 -Igraphs/inc \
@@ -42,6 +47,12 @@ all: linked-list fft graphs test veb-tree
 
 $(BUILD_DIR)%.o: $(CPP_SOURCES) $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
+
+benchmarking: $(BENCHMARKING_SOURCES)
+	mkdir -p benchmarking/lib
+	$(CC) $(CFLAGS) $(BENCHMARKING_SOURCES) -c -o $(BUILD_DIR)/timer.o
+	ar rvs benchmarking/lib/timer.a $(BUILD_DIR)/timer.o
+
 
 linked-list: $(DEPS) $(BUILD_DIR)/linked-list-test.o $(BUILD_DIR)/doubly_linked_list.o $(BUILD_DIR)/node.o
 	$(CC) $(CFLAGS) $(BUILD_DIR)/linked-list-test.o $(BUILD_DIR)/doubly_linked_list.o $(BUILD_DIR)/node.o -o linked-list/test/linked-list-test
@@ -70,7 +81,7 @@ veb-tree: $(VEB_TREE_SOURCES)
 	$(CC) $(CFLAGS) $(VEB_TREE_SOURCES) -o veb-tree/test/test-veb-tree
 	veb-tree/test/test-veb-tree
 
-.PHONY: all test clean fft linked-list
+.PHONY: all test clean fft linked-list benchmarking
 clean:
 	rm -f $(BUILD_DIR)/*
 	rm -f test/*.o
