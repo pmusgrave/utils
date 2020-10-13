@@ -50,9 +50,8 @@ $(BUILD_DIR)%.o: $(CPP_SOURCES) $(DEPS)
 
 benchmarking: $(BENCHMARKING_SOURCES)
 	mkdir -p benchmarking/lib
-	$(CC) $(CFLAGS) $(BENCHMARKING_SOURCES) -c -o $(BUILD_DIR)/timer.o
-	ar rvs benchmarking/lib/timer.a $(BUILD_DIR)/timer.o
-
+	$(CC) $(CFLAGS) $(BENCHMARKING_SOURCES) -c -o $(BUILD_DIR)/instrumentor.o
+	ar rvs benchmarking/lib/instrumentor.a $(BUILD_DIR)/instrumentor.o
 
 linked-list: $(DEPS) $(BUILD_DIR)/linked-list-test.o $(BUILD_DIR)/doubly_linked_list.o $(BUILD_DIR)/node.o
 	$(CC) $(CFLAGS) $(BUILD_DIR)/linked-list-test.o $(BUILD_DIR)/doubly_linked_list.o $(BUILD_DIR)/node.o -o linked-list/test/linked-list-test
