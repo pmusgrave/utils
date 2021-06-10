@@ -1,13 +1,14 @@
 {
-  "name": "convenience",
-  "version": "1.0.0",
-  "description": "",
+  "name": "utils",
+  "version": "0.0.1",
+  "description": "Utilities and convenience functions",
+  "repository": "git:github.com/pmusgrave/utils.git",
   "main": "debug.js",
   "scripts": {
     "test": "jest"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Paul Musgrave",
+  "license": "MIT",
   "dependencies": {
     "dotenv": "^10.0.0"
   },
