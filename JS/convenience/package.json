@@ -1,5 +1,5 @@
 {
-  "name": "utils",
+  "name": "@pmusgrave/utils",
   "version": "0.0.1",
   "description": "Utilities and convenience functions",
   "repository": "git:github.com/pmusgrave/utils.git",
